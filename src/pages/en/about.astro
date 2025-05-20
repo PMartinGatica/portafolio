@@ -1,0 +1,216 @@
+---
+// src/pages/en/about.astro - English About Page
+import Layout from '../../layouts/Layout.astro';
+import SkillBadge from '../../components/SkillBadge.astro';
+import TimelineItem from '../../components/TimelineItem.astro';
+
+// Personal data in English
+const nombreDesarrollador = "Pablo Martín Gatica";
+const perfilImageUrl = "https://placehold.co/400x400/3B82F6/FFFFFF?text=PG"; // Replace with real photo
+
+// Technical skills list in English
+const habilidadesTecnicas = [
+  { 
+    categoria: "Data Analysis & Processing", 
+    skills: ["SQL (MySQL, PostgreSQL)", "Python", "Google Data Studio", "Report Automation", "Data Extraction", "ETL", "Dashboards"] 
+  },
+  { 
+    categoria: "Web Development", 
+    skills: ["JavaScript", "React", "Angular", "Bootstrap", "Django", "Flask", "Node.js", "Express"] 
+  },
+  { 
+    categoria: "QA & Automation", 
+    skills: ["Selenium", "Cypress", "FMEA/NPI", "Functional Testing", "Automated Testing", "Quality Control"] 
+  },
+  { 
+    categoria: "Tools & Methodologies", 
+    skills: ["Git", "Trello", "Jira", "Scrum", "Kanban", "Agile Methodologies"] 
+  }
+];
+
+// Work experience in English
+const experienciaLaboral = [
+  {
+    puesto: "QA Analyst (Motorola Mobile)",
+    empresa: "Newsan",
+    periodo: "Aug 2016 – Present",
+    ubicacion: "Ushuaia, Argentina",
+    descripcion: [
+      "Data extraction and analysis using SQL for quality control reports",
+      "Python script development for data processing and visualization",
+      "Creation and maintenance of KPI dashboards in Google Data Studio",
+      "Coordination of quality audits and preparation of executive reports",
+      "Implementation of process improvements based on FMEA analysis"
+    ]
+  },
+  {
+    puesto: "Front-end Web Developer & QA Analyst",
+    empresa: "Newsan",
+    periodo: "Aug 2022 – Jan 2023",
+    ubicacion: "Ushuaia, Argentina",
+    descripcion: [
+      "Web interface development with JavaScript, Angular and Bootstrap",
+      "Implementation of automated tests with Selenium and Cypress",
+      "Collaboration in agile teams using Git for version control",
+      "QA process optimization through automation tool integration"
+    ]
+  },
+  {
+    puesto: "QC Inspector",
+    empresa: "Newsan",
+    periodo: "Aug 2012 – Jul 2016",
+    ubicacion: "Ushuaia, Argentina",
+    descripcion: [
+      "Quality control in electronic product assembly",
+      "Documentation of inspection processes and procedures",
+      "Analysis of quality indicators and continuous improvement proposals"
+    ]
+  }
+];
+
+// Education and certifications in English
+const educacionCertificaciones = [
+  {
+    tipo: "Education",
+    items: [
+      {
+        titulo: "Bachelor's Degree in Systems",
+        institucion: "Universidad Nacional de Tierra del Fuego (UNTDF)",
+        periodo: "2019 – 2025",
+        descripcion: "Training in software development, databases, systems analysis and artificial intelligence."
+      },
+      {
+        titulo: "Electronics and Industrial Automation Technician",
+        institucion: "EET N°8",
+        periodo: "2000 – 2005",
+        descripcion: "Specialization in electronic systems, automatic control and circuit analysis."
+      }
+    ]
+  },
+  {
+    tipo: "Certifications",
+    items: [
+      { titulo: "Manual QA Tester", institucion: "", año: "", descripcion: "Training in software testing methodologies and techniques." },
+      { titulo: "Introduction to .NET", institucion: "", año: "", descripcion: "Fundamentals of the .NET framework for application development." },
+      { titulo: "Front End Development Diploma", institucion: "Newsan/UNTDF", año: "", descripcion: "Specialization in front-end development technologies such as HTML5, CSS3 and JavaScript." },
+      { titulo: "Back End Development Diploma", institucion: "Newsan/UNTDF", año: "", descripcion: "Specialization in back-end development technologies, APIs and databases." }
+    ]
+  }
+];
+---
+
+<Layout title="About Me" description={`Professional information about ${nombreDesarrollador}, QA/QC Analyst and Web Developer specialized in data analysis and automation.`}>
+  <section class="section-padding">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-8 items-center mb-12">
+          <div class="md:w-1/3">
+            <img 
+              src={perfilImageUrl} 
+              alt={`Profile photo of ${nombreDesarrollador}`} 
+              class="rounded-full w-48 h-48 mx-auto border-4 border-accent shadow-xl object-cover"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x400/cccccc/333333?text=PG';"
+            >
+          </div>
+          <div class="md:w-2/3">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-primary dark:text-accent">About Me</h1>
+            <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">
+              I'm a <span class="text-primary dark:text-accent font-medium">QA/QC Analyst specialized in data analysis and web development</span>, 
+              with over 13 years of experience in electronic production quality control.
+            </p>
+            <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">
+              My approach combines <span class="font-medium">data extraction and analysis using SQL and Python</span> for 
+              report and dashboard generation, with knowledge in <span class="font-medium">web development and test automation</span>.
+            </p>
+            <p class="text-lg text-gray-700 dark:text-gray-300">
+              I excel in transforming complex data into actionable information, 
+              implementing automated solutions, and improving quality control processes through systematic analysis.
+            </p>
+          </div>
+        </div>
+        
+        <div class="mb-16">
+          <h2 class="text-2xl font-bold mb-6 text-primary dark:text-accent border-b border-gray-200 dark:border-gray-700 pb-2">Technical Skills</h2>
+          
+          {habilidadesTecnicas.map(categoria => (
+            <div class="mb-8">
+              <h3 class="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200">{categoria.categoria}</h3>
+              <div class="flex flex-wrap gap-2">
+                {categoria.skills.map(skill => (
+                  <SkillBadge skillName={skill} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div class="mb-16">
+          <h2 class="text-2xl font-bold mb-6 text-primary dark:text-accent border-b border-gray-200 dark:border-gray-700 pb-2">Professional Experience</h2>
+          
+          <div class="space-y-10">
+            {experienciaLaboral.map((trabajo, index) => (
+              <div class="relative">
+                {index < experienciaLaboral.length - 1 && (
+                  <div class="absolute left-6 top-8 h-full w-px bg-gray-300 dark:bg-gray-700"></div>
+                )}
+                <div class="flex gap-4">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary dark:bg-accent flex items-center justify-center text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">{trabajo.puesto}</h3>
+                    <div class="flex flex-wrap gap-x-3 items-center text-gray-600 dark:text-gray-400 mb-2">
+                      <span class="font-medium">{trabajo.empresa}</span>
+                      <span class="text-sm">|</span>
+                      <span>{trabajo.periodo}</span>
+                      <span class="text-sm">|</span>
+                      <span>{trabajo.ubicacion}</span>
+                    </div>
+                    <ul class="mt-2 space-y-2">
+                      {trabajo.descripcion.map(item => (
+                        <li class="flex items-start">
+                          <svg class="h-5 w-5 text-accent mt-0.5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="ml-2 text-gray-700 dark:text-gray-300">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div>
+          <h2 class="text-2xl font-bold mb-6 text-primary dark:text-accent border-b border-gray-200 dark:border-gray-700 pb-2">Education & Certifications</h2>
+          
+          {educacionCertificaciones.map(seccion => (
+            <div class="mb-8">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">{seccion.tipo}</h3>
+              
+              <div class="space-y-6">
+                {seccion.items.map(item => (
+                  <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-gray-100">{item.titulo}</h4>
+                    <div class="flex flex-wrap gap-x-3 items-center text-gray-600 dark:text-gray-400 mb-1">
+                      {item.institucion && <span>{item.institucion}</span>}
+                      {item.institucion && item.periodo && <span class="text-sm">|</span>}
+                      {item.periodo && <span>{item.periodo}</span>}
+                    </div>
+                    {item.descripcion && (
+                      <p class="text-gray-700 dark:text-gray-300 mt-2">{item.descripcion}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

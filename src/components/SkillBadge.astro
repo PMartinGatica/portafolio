@@ -1,0 +1,53 @@
+---
+// src/components/SkillBadge.astro
+export interface Props {
+  skillName: string;
+}
+
+const { skillName } = Astro.props;
+
+// Función para determinar colores basados en categorías
+const getColorClasses = (skill: string) => {
+  // Análisis de datos
+  if (skill.includes('SQL') || skill.includes('Data') || skill.includes('Python') || 
+      skill.includes('Análisis') || skill.includes('Dashboard') || skill.includes('ETL')) {
+    return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+  }
+  
+  // Desarrollo Web / Frontend
+  else if (skill.includes('React') || skill.includes('JavaScript') || skill.includes('HTML') || 
+           skill.includes('CSS') || skill.includes('Angular') || skill.includes('UI') ||
+           skill.includes('UX') || skill.includes('Bootstrap') || skill.includes('Frontend')) {
+    return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
+  }
+  
+  // Backend / Servidores
+  else if (skill.includes('Node') || skill.includes('Express') || skill.includes('Django') || 
+           skill.includes('Flask') || skill.includes('API') || skill.includes('Backend')) {
+    return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+  }
+  
+  // QA / Testing
+  else if (skill.includes('QA') || skill.includes('Test') || skill.includes('Cypress') || 
+           skill.includes('Selenium') || skill.includes('FMEA') || skill.includes('Calidad')) {
+    return 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300';
+  }
+  
+  // Metodologías / Herramientas
+  else if (skill.includes('Scrum') || skill.includes('Kanban') || skill.includes('Git') || 
+           skill.includes('Jira') || skill.includes('Trello') || skill.includes('Metodolog')) {
+    return 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300';
+  }
+  
+  // Default
+  else {
+    return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
+  }
+};
+
+const colorClasses = getColorClasses(skillName);
+---
+
+<span class={`px-3 py-1.5 rounded-full text-sm font-medium ${colorClasses}`}>
+  {skillName}
+</span>

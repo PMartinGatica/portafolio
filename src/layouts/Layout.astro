@@ -1,0 +1,72 @@
+---
+// src/layouts/Layout.astro
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import { getLangFromUrl } from '../i18n/utils';
+
+const { title, description } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+
+// Solución para el error de URL
+let canonicalURL;
+try {
+  canonicalURL = new URL(Astro.url.pathname, Astro.site || 'http://localhost:4321');
+} catch (error) {
+  canonicalURL = new URL('/', 'http://localhost:4321');
+}
+---
+
+<!doctype html>
+<html lang={lang}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        
+        <title>{title} | Portafolio de Pablo Martín Gatica</title>
+        <meta name="description" content={description} />
+
+        <link rel="canonical" href={canonicalURL} />
+        <meta property="og:title" content={`${title} | Portafolio de Pablo Martín Gatica`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${title} | Portafolio de Pablo Martín Gatica`} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="/og-image.jpg" />
+
+        <!-- Alternates para diferentes idiomas -->
+        <link rel="alternate" href={`${Astro.url.origin}${Astro.url.pathname.startsWith('/en') ? Astro.url.pathname.substring(3) : Astro.url.pathname}`} hreflang="es" />
+        <link rel="alternate" href={`${Astro.url.origin}/en${!Astro.url.pathname.startsWith('/en') ? Astro.url.pathname : Astro.url.pathname.substring(3)}`} hreflang="en" />
+
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" /></noscript>
+
+        <!-- Script inline para establecer el tema inicial -->
+        <script is:inline>
+            (function() {
+                // Verificar si hay un tema guardado o usar la preferencia del sistema
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                
+                // Aplicar tema antes de que se renderice la página
+                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
+        </script>
+    </head>
+    <body class="flex flex-col min-h-screen bg-light-bg dark:bg-gray-900 text-dark-text dark:text-light-text selection:bg-accent selection:text-white">
+        <Header />
+        <main class="flex-grow">
+            <slot />
+        </main>
+        <Footer />
+    </body>
+</html>

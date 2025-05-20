@@ -1,0 +1,129 @@
+---
+// src/pages/en/projects.astro - English Projects Page
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+// Lista de proyectos completos en inglés
+const proyectos = [
+  {
+    title: "Comprehensive Quality System",
+    description: "Centralized platform to monitor and manage all stages of the production process, rejections and repairs of devices in real-time. Enables data querying, custom report generation, metrics tracking and process documentation management.",
+    imageUrl: "https://placehold.co/600x400/1E3A8A/FFFFFF?text=Quality+System",
+    projectUrl: "#",
+    repoUrl: "#",
+    tags: ["React", "Django", "PostgreSQL", "Python", "Data Analysis", "Dashboards"],
+    highlights: [
+      "Improved traceability of the manufacturing process",
+      "Reduced response times for incidents",
+      "Optimized resource planning",
+      "Database integration for comparative analysis"
+    ]
+  },
+  {
+    title: "Financial Tracking System",
+    description: "Personal financial management application for recording expenses and income, visualizing monthly and annual balances, analyzing trends through interactive charts, and exporting reports in CSV and PDF formats.",
+    imageUrl: "https://placehold.co/600x400/047857/FFFFFF?text=Financial+Tracking",
+    projectUrl: "#",
+    repoUrl: "#",
+    tags: ["React", "Chart.js", "Tailwind CSS", "Data Visualization"],
+    highlights: [
+      "Clear visualization of personal financial flow",
+      "Data-driven decision making",
+      "Visual analysis of spending trends",
+      "Customized report exports"
+    ]
+  },
+  {
+    title: "Crypto & Stocks Dashboard",
+    description: "Interactive dashboard for real-time tracking of cryptocurrency and stock investments. Includes price and variation monitoring, automatic calculation of profits/losses, configurable alerts, and graphical visualization of historical performance.",
+    imageUrl: "https://placehold.co/600x400/7E22CE/FFFFFF?text=Financial+Dashboard",
+    projectUrl: "#",
+    repoUrl: "#",
+    tags: ["React", "Node.js", "Express", "Financial APIs", "Real-time Visualization"],
+    highlights: [
+      "Centralized management of financial assets",
+      "Investment decisions based on up-to-date data",
+      "Customized alerts for value changes",
+      "Visual analysis of historical performance"
+    ]
+  },
+  {
+    title: "AI-Powered Automated Reporting System",
+    description: "System that uses artificial intelligence to connect with emails, extract relevant information, and generate automated reports. Analyzes incoming emails, organizes information into schedules, and generates reports in accessible formats.",
+    imageUrl: "https://placehold.co/600x400/DC2626/FFFFFF?text=AI+Reports",
+    projectUrl: "#",
+    repoUrl: "#",
+    tags: ["Python", "Flask", "Gmail API", "Gemini", "Automation"],
+    highlights: [
+      "70% reduction in email processing time",
+      "Automatic extraction of key information",
+      "Generation of structured reports without manual intervention",
+      "Integration with multiple data sources"
+    ]
+  },
+// {
+//   title: "Quality Control Dashboard",
+//   description: "KPI visualization system for quality tracking in mobile device production lines. Integrates data from multiple sources, allows advanced filtering, and visualization of historical trends.",
+//   imageUrl: "https://placehold.co/600x400/0369A1/FFFFFF?text=QA+Dashboard",
+//   projectUrl: "#",
+//   repoUrl: "#",
+//   tags: ["Python", "SQL", "Google Data Studio", "ETL", "Data Analysis", "Report Automation"],
+//   highlights: [
+//     "Real-time monitoring of quality indicators",
+//     "Quick access to critical information for decision-making",
+//     "Time reduction in executive report generation",
+//     "Early detection of process deviations"
+//   ]
+// },
+// {
+//   title: "Test Automation Framework",
+//   description: "Complete solution for functional test automation in electronic products, significantly reducing verification time and increasing test coverage.",
+//   imageUrl: "https://placehold.co/600x400/4F46E5/FFFFFF?text=Test+Automation",
+//   projectUrl: "#",
+//   repoUrl: "#",
+//   tags: ["Cypress", "JavaScript", "Python", "QA Automation"],
+//   highlights: [
+//     "40% reduction in test cycle time",
+//     "65% increase in test coverage",
+//     "Automatic generation of execution reports",
+//     "Integration with CI/CD pipelines"
+//   ]
+// }
+];
+---
+
+<Layout title="Projects" description="Portfolio of web development, data analysis and automation projects by Pablo Martín Gatica.">
+  <section class="section-padding">
+    <div class="container mx-auto">
+      <h1 class="text-4xl font-bold mb-6 text-center text-primary dark:text-accent">My Projects</h1>
+      <p class="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-center mb-12">
+        A selection of professional projects focused on data analysis, 
+        web development and automation that showcase my technical expertise and ability to solve complex problems.
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        {proyectos.map(proyecto => (
+          <ProjectCard {...proyecto} />
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <section class="section-padding bg-gray-50 dark:bg-gray-800/50">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-bold mb-6 text-primary dark:text-accent">Interested in collaborating?</h2>
+      <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">
+        I'm always open to new project opportunities where I can apply my skills 
+        in data analysis, automation and web development to create effective solutions.
+      </p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="mailto:pablomartin.gatica@gmail.com" class="button-primary py-3 px-6 text-lg">
+          Contact Me via Email
+        </a>
+        <a href="https://www.linkedin.com/in/pablomartingatica/" target="_blank" rel="noopener noreferrer" class="button-secondary py-3 px-6 text-lg">
+          Connect on LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

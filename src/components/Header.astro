@@ -1,0 +1,99 @@
+---
+// src/components/Header.astro
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+// Obtener el idioma actual de la URL
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Determinar el idioma alternativo
+const alternateLanguage = lang === 'es' ? 'en' : 'es';
+const languageNames = { 'es': 'ES', 'en': 'EN' };
+
+// Crear la URL para el idioma alternativo
+const currentPath = Astro.url.pathname;
+let newPath;
+
+if (lang === 'es') {
+  // Si estamos en español, la nueva ruta será /en + la ruta actual
+  newPath = `/en${currentPath === '/' ? '' : currentPath}`;
+} else {
+  // Si estamos en inglés, quitamos el /en del inicio
+  newPath = currentPath.replace(/^\/en/, '') || '/';
+}
+---
+
+<header class="bg-white dark:bg-gray-800 shadow-sm">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <a href={lang === 'es' ? '/' : '/en'} class="text-xl font-bold text-primary dark:text-accent">
+                <span class="sr-only">{lang === 'es' ? 'Inicio' : 'Home'}</span>
+                &lt;Pablo Martín Gatica/&gt;
+            </a>
+            
+            <nav class="hidden md:flex space-x-4">
+                <a href={lang === 'es' ? '/' : '/en'} class:list={['px-3 py-2 rounded-md text-sm font-medium transition-colors', currentPath === '/' || currentPath === '/en' ? 'bg-gray-200 dark:bg-gray-700 text-primary dark:text-accent' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-dark-text dark:hover:text-white']}>
+                    {lang === 'es' ? 'Inicio' : 'Home'}
+                </a>
+                <a href={lang === 'es' ? '/projects' : '/en/projects'} class:list={['px-3 py-2 rounded-md text-sm font-medium transition-colors', currentPath.includes('/projects') ? 'bg-gray-200 dark:bg-gray-700 text-primary dark:text-accent' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-dark-text dark:hover:text-white']}>
+                    {lang === 'es' ? 'Proyectos' : 'Projects'}
+                </a>
+                <a href={lang === 'es' ? '/about' : '/en/about'} class:list={['px-3 py-2 rounded-md text-sm font-medium transition-colors', currentPath.includes('/about') ? 'bg-gray-200 dark:bg-gray-700 text-primary dark:text-accent' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-dark-text dark:hover:text-white']}>
+                    {lang === 'es' ? 'Sobre mí' : 'About me'}
+                </a>
+            </nav>
+
+            <div class="flex items-center space-x-2">
+                <!-- Botón de cambio de tema mejorado -->
+                <button 
+                    id="theme-toggle" 
+                    aria-label={lang === 'es' ? "Cambiar tema" : "Toggle theme"} 
+                    class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+                >
+                    <!-- Icono para tema claro (se muestra en modo oscuro) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 dark:text-gray-300 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <!-- Icono para tema oscuro (se muestra en modo claro) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 dark:text-gray-300 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+
+                <!-- Botón de cambio de idioma con enlace directo -->
+                <a href={newPath} class="px-2 py-1 rounded-md text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    {languageNames[lang]} → {languageNames[alternateLanguage]}
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    // Script mejorado y más robusto para cambiar el tema
+    function setupThemeToggle() {
+        const themeToggle = document.getElementById('theme-toggle');
+        if (!themeToggle) {
+            console.error('Theme toggle button not found');
+            return;
+        }
+
+        themeToggle.addEventListener('click', () => {
+            // Toggle dark class
+            const isDark = document.documentElement.classList.toggle('dark');
+            
+            // Store user preference
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            // Log for debugging
+            console.log('Theme toggled to:', isDark ? 'dark' : 'light');
+        });
+    }
+
+    // Asegurar que el DOM está completamente cargado
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupThemeToggle);
+    } else {
+        setupThemeToggle();
+    }
+</script>

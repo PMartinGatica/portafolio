@@ -1,0 +1,13 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-900 text-white py-6">
+    <div class="container mx-auto px-4">
+        <div class="text-center">
+            <p>© {currentYear} Pablo Martín Gatica. Todos los derechos reservados.</p>
+            <p class="text-gray-400 text-sm mt-1">Desarrollado con Astro y Tailwind CSS.</p>
+        </div>
+    </div>
+</footer>
